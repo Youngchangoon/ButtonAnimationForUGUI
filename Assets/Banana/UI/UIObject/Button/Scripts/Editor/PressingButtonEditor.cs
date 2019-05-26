@@ -43,6 +43,8 @@ namespace Banana.UI.UIObject.Buttons.Editors
                 mainObj.transform.SetParent(targetTrs);
                 mainObj.transform.localPosition = Vector3.zero;
             }
+
+            targetButton.IsInit = false;
         }
 
         public override void OnInspectorGUI()

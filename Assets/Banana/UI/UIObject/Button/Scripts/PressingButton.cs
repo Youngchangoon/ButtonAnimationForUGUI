@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -55,33 +55,38 @@ namespace Banana.UI.UIObject.Buttons
         public RectTransform ShadowTrs { get { Init(); return _shadowTrs; } }
         public Image MainImage { get { Init(); return _mainImage; } }
         public Image ShadowImage { get { Init(); return _shadowImage; } }
+        public bool IsInit { get; set; }
 
         private RectTransform _mainTrs;
         private RectTransform _shadowTrs;
         private Image _mainImage;
         private Image _shadowImage;
 
-        private bool _isInit;
+        
 
         private void Init()
         {
-            if (_isInit)
+            if (IsInit)
                 return;
 
-            _isInit = true;
-            _mainTrs = _mainTrs ?? transform.Find("MainImage").GetComponent<RectTransform>();
-            _shadowTrs = _shadowTrs ?? transform.Find("ShadowImage").GetComponent<RectTransform>();
+            IsInit = true;
+            _mainTrs = transform.Find("MainImage").GetComponent<RectTransform>();
+            _shadowTrs = transform.Find("ShadowImage").GetComponent<RectTransform>();
 
-            _mainImage = _mainImage ?? _mainTrs.GetComponent<Image>();
-            _shadowImage = _shadowImage ?? _shadowTrs.GetComponent<Image>();
+            _mainImage = _mainTrs.GetComponent<Image>();
+            _shadowImage = _shadowTrs.GetComponent<Image>();
 
             _shadowImage.color = ShadowColor;
         }
 
         public void AcceptImages()
         {
-            var border = buttonSprite.border;
-            var isSliced = border.x > 0 || border.y > 0 || border.z > 0 || border.w > 0;
+            var isSliced = false;
+            if (buttonSprite != null)
+            {
+                var border = buttonSprite.border;
+                isSliced = border.x > 0 || border.y > 0 || border.z > 0 || border.w > 0;
+            }
 
             MainImage.sprite = buttonSprite;
             ShadowImage.sprite = buttonSprite;
