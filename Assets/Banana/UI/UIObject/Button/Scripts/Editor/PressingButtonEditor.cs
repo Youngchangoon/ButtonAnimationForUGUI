@@ -14,7 +14,6 @@ namespace Banana.UI.UIObject.Buttons.Editors
             // ------- Create code ---------
             var pressingButtonObj = new GameObject("PressingButton");
             pressingButtonObj.transform.SetParent(Selection.activeTransform ?? null, false);
-
             
             var pressingButtonCompoennt = pressingButtonObj.AddComponent<PressingButton>();
             var scaleButton = pressingButtonObj.GetComponent<Button>();
@@ -27,13 +26,15 @@ namespace Banana.UI.UIObject.Buttons.Editors
 
         private void OnEnable()
         {
-            var targetTrs = ((PressingButton)target).GetComponent<RectTransform>();
+            var targetButton = (PressingButton)target;
+            var targetTrs = targetButton.GetComponent<RectTransform>();
             
             if (targetTrs.Find("ShadowImage") == null)
             {
-                var mainObj = new GameObject("ShadowImage", typeof(RectTransform), typeof(Image));
-                mainObj.transform.SetParent(targetTrs);
-                mainObj.transform.localPosition = new Vector2(0, -50);
+                var shadowObj = new GameObject("ShadowImage", typeof(RectTransform), typeof(Image));
+                shadowObj.transform.SetParent(targetTrs);
+                shadowObj.transform.localPosition = new Vector2(0, -targetButton.PressingDown);
+                shadowObj.GetComponent<Image>().color = targetButton.ShadowColor;
             }
 
             if (targetTrs.Find("MainImage") == null)
