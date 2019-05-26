@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -7,7 +7,7 @@ namespace Banana.UI.UIObject.Buttons
 {
     public class PressingButton : ButtonAniBase
     {
-        [SerializeField] private int pressingDown = 50;
+        [SerializeField] private int pressingDown = 20;
         [SerializeField] private Sprite buttonSprite;
         [SerializeField] private Color shadowColor = new Color(0, 0, 0, 0.5f);
         [SerializeField] private bool isSmooth = true;
